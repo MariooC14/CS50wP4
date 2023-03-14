@@ -1,0 +1,42 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+    <main class="container">
+        {% if user.is_authenticated %}
+        <form id="post--creation--form" method="POST">
+            <h2>Make a post</h2>
+            {% csrf_token %}
+            {{ post_form }}
+            <button id="submit--post--button">Post</button>
+        </form>
+        {% endif %}
+        <section id="posts--feed">
+            {% for post in posts %}
+                <div class="post" id="post-#{{ post.id }}">
+                    <!-- TODO: Make username a link to the user's profile -->
+                    <h4>@{{ post.poster }}</h4>
+                    <!-- TODO: Allow user to edit post if they are the poster. -->
+                    <div class="text-success">
+                        {{ post.message|linebreaksbr }}
+                    </div>
+                    <div>Posted on {{ post.timestamp }}</div>
+                    <!-- TODO: Add function to update the likes -->
+                    <div>
+                        {% if post.liked_by_user %}
+                            <img class="like-button" src="../../static/network/heart-filled.png">
+                        {% else %}
+                            <img class="like-button" src="../../static/network/heart-empty.png">
+                        {% endif %}
+                        <span class="like--count--display">{{ post.like_count }}</span>
+                    </div>
+                </div>
+            {% empty %}
+                Nothing has been posted yet.
+            {% endfor %}
+        </section>
+    </main>
+{% endblock %}
+
+{% block scripts %}
+<script src="../../static/network/PostsFetch.js"></script>
+{% endblock %}

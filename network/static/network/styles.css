@@ -1,0 +1,54 @@
+.container {
+    margin: 20px;
+}
+
+#post--creation--form {
+    min-width: 90vw;
+    min-height: 200px;
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 0px 40px;
+    display: inline-block;
+}
+
+#post--creation--form > h2 {
+    margin: 15px 0 0 0;
+}
+
+#id_message {
+    /* resize: none; */
+    width: 90%;
+    min-height: 50px;
+    margin-top: 10px;
+}
+
+#submit--post--button {
+    display: block;
+    margin: 10px 0;
+    background-color: darkgreen;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 7px 20px;
+}
+
+#posts--feed {
+    
+}
+
+.post {
+    margin: 10px 0;
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 20px;
+    width: 90vw;
+}
+
+.like-button {
+    width: 20px;
+}
+
+.like--count--display {
+    display: inline;
+    color: gray;
+}
