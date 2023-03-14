@@ -14,12 +14,12 @@ def index(request):
 
     post_form = PostForm()
 
-    #TODO: Fetch Posts with pagination
+    # TODO: Fetch Posts with pagination
     if request.method == "GET":
         
         post_objects = json.loads(posts(request).content)
 
-        return render(request, "network/templates/network/index.html", {
+        return render(request, "network/index.html", {
             "post_form": post_form,
             "posts": post_objects,
         })
@@ -41,13 +41,12 @@ def posts(request):
         return JsonResponse([post.serialize() for post in posts],
                             safe=False)
 
-
     elif request.method == "POST":
 
         if not request.user.is_authenticated:
-                return JsonResponse({
-                    "message": "Must be logged in to make a post"
-                })
+            return JsonResponse({
+                "message": "Must be logged in to make a post"
+            })
 
     data = json.loads(request.body)
 
@@ -73,11 +72,11 @@ def login_view(request):
             login(request, user)
             return HttpResponseRedirect(reverse("index"))
         else:
-            return render(request, "network/templates/network/login.html", {
+            return render(request, "network/login.html", {
                 "message": "Invalid username and/or password."
             })
     else:
-        return render(request, "network/templates/network/login.html")
+        return render(request, "network/login.html")
 
 
 def logout_view(request):
@@ -94,7 +93,7 @@ def register(request):
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
         if password != confirmation:
-            return render(request, "network/templates/network/register.html", {
+            return render(request, "network/register.html", {
                 "message": "Passwords must match."
             })
 
@@ -103,10 +102,10 @@ def register(request):
             user = User.objects.create_user(username, email, password)
             user.save()
         except IntegrityError:
-            return render(request, "network/templates/network/register.html", {
+            return render(request, "network/register.html", {
                 "message": "Username already taken."
             })
         login(request, user)
         return HttpResponseRedirect(reverse("index"))
     else:
-        return render(request, "network/templates/network/register.html")
+        return render(request, "network/register.html")
